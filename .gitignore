@@ -1,0 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+py312_pdf_rag/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data directories (keep structure, ignore contents)
+data/uploads/*
+data/processed/*
+data/chroma_db/*
+!data/uploads/.gitkeep
+!data/processed/.gitkeep
+!data/chroma_db/.gitkeep
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Claude
+Claude/
+
+# Python Notebooks
+notebooks/
+
+# Test files
+tests/
+
+# UI Reference Images
+ui_ref_imGS/
+
+# Claude Markdown Files
+IMPLEMENTATION_PLAN.md
+PROJECT_STATUS.md

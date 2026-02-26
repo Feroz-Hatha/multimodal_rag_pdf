@@ -1,0 +1,17 @@
+[Unit]
+Description=PDF RAG FastAPI Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/PDF_Multimodal_RAG
+# Activate the virtualenv by pointing PATH at its bin/
+Environment="PATH=/home/ubuntu/PDF_Multimodal_RAG/py312_pdf_rag/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+EnvironmentFile=/home/ubuntu/PDF_Multimodal_RAG/.env
+ExecStart=/home/ubuntu/PDF_Multimodal_RAG/py312_pdf_rag/bin/uvicorn src.api.main:app --host 127.0.0.1 --port 8000 --workers 1
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
