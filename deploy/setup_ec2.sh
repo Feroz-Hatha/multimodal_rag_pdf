@@ -31,7 +31,13 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 echo "=== [4/8] Clone repository ==="
-git clone "$REPO_URL" "$APP_DIR"
+if [ -d "$APP_DIR/.git" ]; then
+    echo "Repo already exists — pulling latest..."
+    cd "$APP_DIR" && git pull
+else
+    git clone "$REPO_URL" "$APP_DIR"
+    cd "$APP_DIR"
+fi
 cd "$APP_DIR"
 
 echo "=== [5/8] Python virtual environment ==="
