@@ -14,6 +14,9 @@ echo "=== [1/8] System update ==="
 sudo apt-get update -y && sudo apt-get upgrade -y
 
 echo "=== [2/8] System dependencies ==="
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt-get update -y
 sudo apt-get install -y \
     python3.12 python3.12-venv python3.12-dev \
     python3-pip \
