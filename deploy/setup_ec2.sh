@@ -43,6 +43,9 @@ cd "$APP_DIR"
 echo "=== [5/8] Python virtual environment ==="
 python3.12 -m venv "$VENV"
 "$VENV/bin/pip" install --upgrade pip
+# Install easyocr without deps first to avoid pulling in CUDA PyTorch (no GPU on EC2)
+"$VENV/bin/pip" install easyocr --no-deps
+"$VENV/bin/pip" install opencv-python-headless pyclipper python-bidi scikit-image Shapely scipy ninja
 "$VENV/bin/pip" install -r requirements.txt
 
 echo "=== [6/8] Build React frontend ==="
