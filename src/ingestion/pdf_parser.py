@@ -12,7 +12,7 @@ import io
 import re
 
 from docling.datamodel.base_models import InputFormat
-from docling.datamodel.pipeline_options import PdfPipelineOptions
+from docling.datamodel.pipeline_options import PdfPipelineOptions, EasyOcrOptions
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling_core.types.doc import (
     DoclingDocument,
@@ -49,19 +49,25 @@ class PDFParser:
         self.extract_images = extract_images
         self.ocr_enabled = ocr_enabled
 
-        # Configure pipeline options
+        # Standard converter — OCR runs only when Docling detects it's needed
         pipeline_options = PdfPipelineOptions()
         pipeline_options.do_ocr = ocr_enabled
         pipeline_options.do_table_structure = extract_tables
-        # Required for get_image() to return actual pixel data
         pipeline_options.generate_picture_images = extract_images
-        pipeline_options.images_scale = 2.0  # 2x scale for better vision quality
-
-        # Initialize converter
+        pipeline_options.images_scale = 2.0
         self.converter = DocumentConverter(
-            format_options={
-                InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)
-            }
+            format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)}
+        )
+
+        # Fallback converter — forces OCR on every page (for image-based PDFs)
+        fallback_options = PdfPipelineOptions()
+        fallback_options.do_ocr = True
+        fallback_options.ocr_options = EasyOcrOptions(force_full_page_ocr=True)
+        fallback_options.do_table_structure = extract_tables
+        fallback_options.generate_picture_images = extract_images
+        fallback_options.images_scale = 2.0
+        self.fallback_converter = DocumentConverter(
+            format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=fallback_options)}
         )
 
     def _compute_file_hash(self, file_path: Path) -> str:
@@ -382,9 +388,14 @@ class PDFParser:
         file_hash = self._compute_file_hash(file_path)
         file_size = file_path.stat().st_size
 
-        # Convert document
+        # Convert document — fall back to force-OCR if nothing is extracted
         result = self.converter.convert(file_path)
         doc: DoclingDocument = result.document
+
+        if not list(doc.iterate_items()):
+            logger.info(f"No content extracted with standard converter — retrying with full-page OCR for '{file_path.name}'")
+            result = self.fallback_converter.convert(file_path)
+            doc = result.document
 
         # Get total pages
         total_pages = 0

@@ -79,6 +79,7 @@ def _run_indexing(app_state, job_id: str, upload_path, filename: str) -> None:
         chunks = result.chunks
 
         if not chunks:
+            logger.warning(f"Job {job_id}: no chunks produced for '{filename}' — document may be too short or have unrecognised structure")
             jobs[job_id].update({
                 "status": "error",
                 "progress": 1.0,

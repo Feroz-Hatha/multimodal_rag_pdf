@@ -4,6 +4,7 @@
 # PDF Parsing
 docling>=2.15.0
 docling-core>=2.21.0
+easyocr>=1.7.0
 
 # Data Processing
 pandas>=2.0.0

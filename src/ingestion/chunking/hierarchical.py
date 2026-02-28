@@ -169,7 +169,8 @@ class HierarchicalChunker(BaseChunker):
             content = "\n\n".join(current_content)
 
             # Skip if too small (unless it's a table or image)
-            if len(content) < self.min_chunk_size and content_type == ContentType.TEXT:
+            # Use 25 as a hard floor so short-section docs (e.g. resumes) aren't silently dropped
+            if len(content) < min(self.min_chunk_size, 25) and content_type == ContentType.TEXT:
                 return
 
             # Prepend heading if configured
