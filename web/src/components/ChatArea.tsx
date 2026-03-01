@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, ChevronDown, ChevronUp, FileText } from 'lucide-react';
+import { Send, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Message, Source } from '../types';
 import { queryStream } from '../api';
 
@@ -83,7 +83,7 @@ export default function ChatArea({
           /* Welcome screen */
           <div className="h-full flex flex-col items-center justify-center text-center">
             <h1 className="text-4xl font-bold text-sage-900 tracking-tight mb-3 flex items-center gap-3">
-              <FileText size={36} className="text-sage-600" />
+              <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
               PDF RAG Assistant
             </h1>
             <p className="text-sm text-sage-400 max-w-sm leading-relaxed">

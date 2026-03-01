@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Paperclip, Trash2, FileText } from 'lucide-react';
+import { Paperclip, Trash2 } from 'lucide-react';
 import type { SessionDoc } from '../types';
 import { ingestDocument, getJobStatus, deleteDocument } from '../api';
 
@@ -102,7 +102,7 @@ export default function Sidebar({
       {/* Header */}
       <div className="px-4 py-3.5 border-b border-sage-200">
         <p className="text-sm font-semibold text-sage-800 tracking-tight flex items-center gap-1.5">
-          <FileText size={14} className="text-sage-600 flex-shrink-0" />
+          <img src="/logo.png" alt="Logo" className="w-5 h-5 flex-shrink-0 object-contain" />
           PDF RAG Assistant
         </p>
       </div>
