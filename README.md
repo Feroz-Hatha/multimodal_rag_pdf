@@ -2,7 +2,7 @@
 
 A production-ready **Retrieval-Augmented Generation (RAG)** pipeline for complex PDF documents. Upload any PDF — including those with multi-column layouts, tables, and figures — and ask questions about its content in natural language. Responses are streamed in real-time with inline source citations.
 
-Live at: **http://mm-pdf-rag-fh.duckdns.org**
+Live at: **https://mm-pdf-rag-fh.duckdns.org**
 
 ---
 
